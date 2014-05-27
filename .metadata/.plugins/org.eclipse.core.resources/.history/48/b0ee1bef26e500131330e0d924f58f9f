@@ -1,0 +1,23 @@
+package com.example.lynda1;
+
+import android.graphics.Color;
+
+public class Node {
+
+	int c;
+	int x;
+	int y;
+	int v;
+	
+	public Node(int ca,int xa,int ya,int va) {
+		this.c=ca;
+		this.x=xa;
+		this.y=ya;
+		this.v=va;
+		}
+}
+
+
+paint.setColor(Color.RED);
+myRectangle.set(nodes[i][j].x,nodes[i][j].y,thick,thick);
+canvas.drawRect(myRectangle, paint);

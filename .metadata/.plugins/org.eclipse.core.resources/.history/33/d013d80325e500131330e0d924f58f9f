@@ -1,0 +1,16 @@
+package com.example.lynda1;
+
+public class Node {
+
+	int c;
+	int x;
+	int y;
+	int v;
+	
+	public Node(int ca,int xa,int ya,int va) {
+		this.c=c;
+		this.x=x;
+		this.y=y;
+		this.v=v;
+		}
+}

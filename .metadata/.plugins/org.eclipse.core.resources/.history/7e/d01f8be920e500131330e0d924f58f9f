@@ -1,0 +1,102 @@
+package com.example.lynda1;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.Display;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.WindowManager;
+
+public class AnimThread extends Thread{
+	
+	private SurfaceHolder holder;
+	private boolean running;
+	private int i=0;
+	private int j=0;
+	Canvas canvas = null;
+	WindowManager wm;
+	Display display;
+	
+	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
+	
+	float canwidth;// deprecated
+	float canheight;  // deprecated
+	int thick=10;
+	int over=0;
+	int binary=1;
+	int clicked=0;
+	
+	
+	
+	///////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////
+	
+	
+	public AnimThread(SurfaceHolder holder, Context cont) {
+		this.holder = holder;
+		wm = (WindowManager) cont.getSystemService(Context.WINDOW_SERVICE);
+		display = wm.getDefaultDisplay();
+		canwidth = display.getWidth();
+		canheight = display.getHeight();
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+		while(running ) {
+
+            try {
+            	canvas = holder.lockCanvas();
+                synchronized (holder) {
+                	doit();
+                }	
+            }
+            finally {
+                    if (canvas != null) {
+                            holder.unlockCanvasAndPost(canvas);
+                    }               
+            }
+        }
+	}
+	
+	void setRunning(boolean b) {
+		// TODO Auto-generated method stub
+		running = b;
+	}
+
+	public void setxy(float x2, float y2) {
+		// TODO Auto-generated method stub
+		x = x2;
+		y = y2;
+	}
+		
+	private void doit() {
+		
+		
+		
+		
+       	   canvas.drawColor(Color.BLACK);
+           Paint paint = new Paint();
+           paint.setColor(Color.WHITE);
+           canvas.drawCircle(x, y, 50, paint);
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+	}
+
+	
+}

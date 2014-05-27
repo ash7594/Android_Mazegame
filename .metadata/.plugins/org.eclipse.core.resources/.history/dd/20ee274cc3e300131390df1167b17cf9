@@ -1,0 +1,51 @@
+package com.example.lynda1;
+
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.SurfaceHolder;
+
+public class AnimThread extends Thread{
+	
+	private SurfaceHolder holder;
+	private boolean running;
+	private int i=0;
+	private int j=0;
+
+	public AnimThread(SurfaceHolder holder) {
+		this.holder = holder;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		Canvas canvas = null;
+		while(running ) {
+            
+
+            try {
+                canvas = holder.lockCanvas();
+                 synchronized (holder) {
+                    // draw
+                	if(j==0) { canvas.drawColor(Color.BLACK); j=1; }
+                    Paint paint = new Paint();
+                    paint.setColor(Color.WHITE);
+                    canvas.drawCircle(i++, 100, 50, paint);
+                }
+            }
+            finally {
+                    if (canvas != null) {
+                            holder.unlockCanvasAndPost(canvas);
+                        }
+            }
+        }
+		
+	}
+	
+	void setRunning(boolean b) {
+		// TODO Auto-generated method stub
+		running = b;
+	}
+	
+
+}

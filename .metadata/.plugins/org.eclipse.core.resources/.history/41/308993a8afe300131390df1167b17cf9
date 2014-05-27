@@ -1,0 +1,13 @@
+package com.example.lynda1;
+
+import android.content.Context;
+import android.view.SurfaceView;
+
+public class AnimView extends SurfaceView implements SurfaceHolder.CallBack{
+
+	public AnimView(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+
+}
