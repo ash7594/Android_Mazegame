@@ -29,7 +29,7 @@ public class AnimThread extends Thread{
 	
 	float canwidth;// deprecated
 	float canheight;  // deprecated
-	int thick=20;
+	int thick=1;
 	int over=0;
 	int binary=1;
 	int clicked=0;

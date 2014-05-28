@@ -29,7 +29,7 @@ public class AnimThread extends Thread{
 	
 	float canwidth;// deprecated
 	float canheight;  // deprecated
-	int thick=20;
+	int thick=10;
 	int over=0;
 	int binary=1;
 	int clicked=0;
@@ -48,12 +48,12 @@ public class AnimThread extends Thread{
 
 	Node[] answer;
 	Node[][] nodes;
+	
 	int ran;
 	int repf;
 	boolean theflag_is = true;
 	boolean hasstarted = true;
-	
-	boolean watchMazeGen = true;
+	boolean wait_then_draw = false;
 	
 	///////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////
@@ -119,8 +119,7 @@ public class AnimThread extends Thread{
 					canvas.drawRect(myrect, paint);
 					
 					}
-			if(watchMazeGen)
-				holder.unlockCanvasAndPost(canvas);
+			holder.unlockCanvasAndPost(canvas);
 				}
 		
 		
@@ -128,10 +127,11 @@ public class AnimThread extends Thread{
 		while(running ) {
 			
             try {
-            	//canvas = holder.lockCanvas();
-              
+            	canvas = holder.lockCanvas();
+            	if(canvas!=null)
             	synchronized (holder) {
-            		doit();
+                	doit();
+                	
                 }	
             } //catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -139,11 +139,10 @@ public class AnimThread extends Thread{
 			//}
             finally {
                     //if (canvas != null)
-                            //holder.unlockCanvasAndPost(canvas);
+                            holder.unlockCanvasAndPost(canvas);
                     }               
             }
-		if(!watchMazeGen)
-			holder.unlockCanvasAndPost(canvas);
+		//holder.unlockCanvasAndPost(canvas);
         
 	}
 	
@@ -238,16 +237,9 @@ public class AnimThread extends Thread{
 			curi=(int)(stacky[ttop]/thick);
 			move=stackm[ttop];
 			
-			
-			
 			paint.setColor(Color.WHITE);
 			myrect.set(nodes[curi][curj].x,nodes[curi][curj].y, nodes[curi][curj].x+thick, nodes[curi][curj].y+thick);
-			
-			if(watchMazeGen)
-				canvas = holder.lockCanvas(myrect);
 			canvas.drawRect(myrect, paint);
-			if(watchMazeGen)
-				holder.unlockCanvasAndPost(canvas);
 			
 			if(ttop==0)
 				{
@@ -273,12 +265,7 @@ public class AnimThread extends Thread{
 			{
 			paint.setColor(Color.RED);
 			myrect.set(nodes[curi][curj].x,nodes[curi][curj].y, nodes[curi][curj].x+thick, nodes[curi][curj].y+thick);
-			if(watchMazeGen)
-				canvas = holder.lockCanvas(myrect);
-			
 			canvas.drawRect(myrect, paint);
-			if(watchMazeGen)
-				holder.unlockCanvasAndPost(canvas);
 			
 			cantgo=3;
 			if(up==1)
@@ -337,12 +324,7 @@ public class AnimThread extends Thread{
 			
 			paint.setColor(Color.WHITE);
 			myrect.set(nodes[curi][curj].x,nodes[curi][curj].y, nodes[curi][curj].x+thick, nodes[curi][curj].y+thick);
-			
-			if(watchMazeGen)
-				canvas = holder.lockCanvas(myrect);
 			canvas.drawRect(myrect, paint);
-			if(watchMazeGen)
-				holder.unlockCanvasAndPost(canvas);
 			
 			}
 			
