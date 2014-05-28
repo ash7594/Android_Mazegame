@@ -20,13 +20,16 @@ public class AnimThread extends Thread{
 	
 	Paint paint = new Paint();
 	Rect myrect = new Rect();
+	
+	long mStartTime = System.currentTimeMillis();
+	
 	////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////
 	
 	float canwidth;// deprecated
 	float canheight;  // deprecated
-	int thick=50;
+	int thick=20;
 	int over=0;
 	int binary=1;
 	int clicked=0;
@@ -48,7 +51,9 @@ public class AnimThread extends Thread{
 	
 	int ran;
 	int repf;
-	private int theflagis = 0;
+	boolean theflag_is = true;
+	boolean hasstarted = true;
+	boolean wait_then_draw = false;
 	
 	///////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////
@@ -62,45 +67,10 @@ public class AnimThread extends Thread{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub	
-		
-		while(running ) {
-
-            try {
-            	canvas = holder.lockCanvas();
-                synchronized (holder) {
-                	doit();
-                	sleep(1000);
-                }	
-            } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            finally {
-                    if (canvas != null) {
-                            holder.unlockCanvasAndPost(canvas);
-                    }               
-            }
-        }
-	}
-	
-	void setRunning(boolean b) {
-		// TODO Auto-generated method stub
-		running = b;
-	}
-
-	public void setxy(float x2, float y2) {
-		// TODO Auto-generated method stub
-		//x = x2;
-		//y = y2;
-	}
-		
-	private void doit() {
-		
-		//clearTimeout(repf);
-		/////////////////////////////////////
-		/////////////////////////////////////
-		if(theflagis == 0)
-		{
+		if(theflag_is)
+		{ 
+			canvas = holder.lockCanvas();
+			theflag_is = false;
 			
 			canwidth = canvas.getWidth();// deprecated
 			canheight = canvas.getHeight();  // deprecated
@@ -113,8 +83,6 @@ public class AnimThread extends Thread{
 			
 			nodes=new Node[n_ny][n_nx];
 			
-			
-			theflagis = 1;
 		//canvas.getWidth();
 		//canvas.getHeight();
 		
@@ -139,22 +107,66 @@ public class AnimThread extends Thread{
 			stackx[ttop]=nodes[curi][curj].x;
 			stacky[ttop]=nodes[curi][curj].y;
 			stackm[ttop]=1;
-		
+			
+			paint.setColor(Color.RED);
 			for(int i=0;i<n_ny;i++)
 				for(int j=0;j<n_nx;j++)
 					if(nodes[i][j].v==1)
 					{
 			//int i=0, j=0;
-					paint.setColor(Color.RED);
+					
 					myrect.set(nodes[i][j].x,nodes[i][j].y, nodes[i][j].x+thick, nodes[i][j].y+thick);
 					canvas.drawRect(myrect, paint);
 					
 					}
-		
+			//holder.unlockCanvasAndPost(canvas);
 				}
 		
+		
+		
+		while(running ) {
+			
+            try {
+            	//canvas = holder.lockCanvas();
+              
+            	synchronized (holder) {
+                	doit();
+                	
+                }	
+            } //catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			//}
+            finally {
+                    //if (canvas != null) {
+                            //holder.unlockCanvasAndPost(canvas);
+                    }               
+            }
+		holder.unlockCanvasAndPost(canvas);
+        
+	}
+	
+	void setRunning(boolean b) {
+		// TODO Auto-generated method stub
+		running = b;
+	}
+
+	public void setxy(float x2, float y2) {
+		// TODO Auto-generated method stub
+		//x = x2;
+		//y = y2;
+	}
+		
+	private void doit() {
+		
+		//clearTimeout(repf);
 		/////////////////////////////////////
 		/////////////////////////////////////
+				
+		/////////////////////////////////////
+		/////////////////////////////////////
+		
+		//if(wait_then_draw) {
 		
 		int[] list=new int[]{1,2,3,4};
 		up=down=right=left=cantgo=0;
@@ -318,8 +330,18 @@ public class AnimThread extends Thread{
 			
 		if(over!=0)
 			setRunning(false);
+		
+		
 			//repf=setTimeout(function(){frame()},1);
-           
+		/*
+		try {
+			sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
+		finally{}
+		*/
 	}
 
 	
