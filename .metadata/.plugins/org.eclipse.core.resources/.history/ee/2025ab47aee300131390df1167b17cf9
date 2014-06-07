@@ -1,9 +1,0 @@
-package com.example.lynda1;
-
-public class AnimView {
-
-	public AnimView(Main main) {
-		// TODO Auto-generated constructor stub
-	}
-
-}

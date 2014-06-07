@@ -35,9 +35,9 @@ public class Main extends Activity {
         mySensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         List<Sensor> mySensors = mySensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
         
-        if(mySensors.size() > 0){
+        //if(mySensors.size() > 0){
             mySensorManager.registerListener(mySensorEventListener, mySensors.get(0), SensorManager.SENSOR_DELAY_NORMAL);
-        }
+        //}
         
         //view = new AnimView(this);
         //setContentView(view);
