@@ -31,7 +31,7 @@ public class Main extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.testmain);
+        setContentView(R.layout.main);
         mySensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         List<Sensor> mySensors = mySensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
         
@@ -39,12 +39,12 @@ public class Main extends Activity {
             mySensorManager.registerListener(mySensorEventListener, mySensors.get(0), SensorManager.SENSOR_DELAY_NORMAL);
         }
         
-        //view = new AnimView(this);
-        //setContentView(view);
+        view = new AnimView(this);
+        setContentView(view);
         
-        textviewAzimuth = (TextView)findViewById(R.id.textazimuth);
-        textviewPitch = (TextView)findViewById(R.id.textpitch);
-        textviewRoll = (TextView)findViewById(R.id.textroll);
+//        textviewAzimuth = (TextView)findViewById(R.id.textazimuth);
+//        textviewPitch = (TextView)findViewById(R.id.textpitch);
+//        textviewRoll = (TextView)findViewById(R.id.textroll);
        
     }
         
@@ -53,9 +53,13 @@ public class Main extends Activity {
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			// TODO Auto-generated method stub
-			textviewAzimuth.setText("Azimuth: " + String.valueOf(event.values[0]));
-	           textviewPitch.setText("Pitch: " + String.valueOf(event.values[1]));
-	           textviewRoll.setText("Roll: " + String.valueOf(event.values[2]));
+//				textviewAzimuth.setText("Azimuth: " + String.valueOf(event.values[0]));
+//				textviewPitch.setText("Pitch: " + String.valueOf(event.values[1]));
+//				textviewRoll.setText("Roll: " + String.valueOf(event.values[2]));
+			RotationValues.x = event.values[0];
+			RotationValues.y = event.values[1];
+			RotationValues.z = event.values[2];
+			
 		}
 		
 		@Override

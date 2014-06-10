@@ -1,0 +1,10 @@
+package com.example.lynda1;
+
+public class RotationValues {
+
+	protected static float x;
+	protected static float y;
+	protected static float z;
+	
+	
+}
